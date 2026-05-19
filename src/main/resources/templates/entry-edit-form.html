@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" th:href="@{/css/style.css}" />
+	<title>出走馬修正</title>
+</head>
+
+<body>
+	<header class="site-header">
+		<div class="site-title">Steel Horse Run</div>
+
+		<nav class="site-nav">
+			<a th:href="@{/races}">レース一覧</a>
+			<a th:href="@{/races/new}">レース登録</a>
+		</nav>
+	</header>
+
+	<div class="container">
+
+		<h1>出走馬修正</h1>
+
+		<form th:action="@{/races/{raceId}/entries/{entryId}/edit(
+					raceId=${raceId},
+					entryId=${entryForm.entryId}
+				)}" th:object="${entryForm}" method="post">
+
+			<input type="hidden" th:field="*{entryId}">
+			<input type="hidden" th:field="*{horseId}">
+
+			<h2>馬情報</h2>
+
+			<p>
+				馬名：
+				<span class="required-label">必須</span>
+				<input type="text" th:field="*{horseName}" required>
+			</p>
+
+			<p>
+				年齢：
+				<span class="required-label">必須</span>
+				<input type="number" th:field="*{age}" required>
+			</p>
+
+			<p>
+				性別：
+				<span class="required-label">必須</span>
+				<select th:field="*{sex}" required>
+					<option value="">選択してください</option>
+					<option value="牡">牡</option>
+					<option value="牝">牝</option>
+					<option value="セ">セ</option>
+				</select>
+			</p>
+
+			<h2>出走情報</h2>
+
+			<p>
+				騎手：
+				<span class="optional-label">任意</span>
+				<input type="text" th:field="*{jockey}">
+			</p>
+
+			<p>
+				枠番：
+				<span class="optional-label">任意</span>
+				<input type="number" th:field="*{frameNumber}">
+			</p>
+
+			<p>
+				馬番：
+				<span class="required-label">必須</span>
+				<input type="number" th:field="*{horseNumber}" required>
+			</p>
+
+			<p>
+				オッズ：
+				<span class="optional-label">任意</span>
+				<input type="number" step="0.1" th:field="*{odds}">
+			</p>
+
+			<p>
+				人気：
+				<span class="optional-label">任意</span>
+				<input type="number" th:field="*{popularity}">
+			</p>
+
+			<p>
+				直近成績：
+				<span class="optional-label">任意</span>
+				<input type="number" th:field="*{recentResult}">
+			</p>
+
+			<button type="submit">修正する</button>
+
+		</form>
+
+		<br>
+
+		<a th:href="@{/races/{raceId}/entries/new(raceId=${raceId})}" class="btn btn-danger">
+			戻る
+		</a>
+
+	</div>
+</body>
+
+</html>

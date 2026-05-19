@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<title>出走馬登録</title>
+</head>
+
+<body>
+	<header class="site-header">
+		<div class="site-title">Steel Horse Run</div>
+
+		<nav class="site-nav">
+			<a th:href="@{/races}">レース一覧</a>
+			<a th:href="@{/races/new}">レース登録</a>
+		</nav>
+	</header>
+
+	<div class="container">
+		<div class="container">
+			<h1>出走馬登録</h1>
+
+			<p>
+				レースID：
+				<span th:text="${raceId}"></span>
+			</p>
+
+			<form th:action="@{/races/{raceId}/entries/new(raceId=${raceId})}" th:object="${entryForm}" method="post">
+
+				<h2>馬情報</h2>
+
+				<p>
+					馬名：
+					<span class="required-label">必須</span>
+					<input type="text" th:field="*{horseName}" required>
+				</p>
+
+				<p>
+					年齢：
+					<span class="required-label">必須</span>
+					<input type="number" th:field="*{age}" required>
+				</p>
+
+				<p>
+					性別：
+					<span class="required-label">必須</span>
+					<select th:field="*{sex}" required>
+						<option value="">選択してください</option>
+						<option value="牡">牡</option>
+						<option value="牝">牝</option>
+						<option value="セ">セ</option>
+					</select>
+				</p>
+
+				<h2>出走情報</h2>
+
+				<p>
+					騎手：
+					<span class="optional-label">任意</span>
+					<input type="text" th:field="*{jockey}">
+				</p>
+
+				<p>
+					枠番：
+					<span class="optional-label">任意</span>
+					<input type="number" th:field="*{frameNumber}">
+				</p>
+
+				<p>
+					馬番：
+					<span class="required-label">必須</span>
+					<input type="number" th:field="*{horseNumber}" required>
+				</p>
+
+				<p>
+					オッズ：
+					<span class="optional-label">任意</span>
+					<input type="number" step="0.1" th:field="*{odds}">
+				</p>
+
+				<p>
+					人気：
+					<span class="optional-label">任意</span>
+					<input type="number" th:field="*{popularity}">
+				</p>
+
+				<p>
+					直近成績：
+					<span class="optional-label">任意</span>
+					<input type="number" th:field="*{recentResult}">
+				</p>
+
+				<button type="submit">出走馬を追加する</button>
+
+			</form>
+
+			<hr>
+
+			<h2>登録済み出走馬一覧</h2>
+
+			<div th:if="${entries == null || entries.isEmpty()}">
+				<p>まだ出走馬は登録されていません。</p>
+			</div>
+
+			<div th:if="${entries != null && !entries.isEmpty()}">
+				<table>
+					<tr>
+						<th>馬番</th>
+						<th>馬名</th>
+						<th>年齢</th>
+						<th>性別</th>
+						<th>騎手</th>
+						<th>人気</th>
+						<th>オッズ</th>
+						<th>直近成績</th>
+						<th>操作</th>
+					</tr>
+
+					<tr th:each="entry : ${entries}">
+						<td th:text="${entry.horseNumber}"></td>
+						<td th:text="${entry.horseName}"></td>
+						<td th:text="${entry.age}"></td>
+						<td th:text="${entry.sex}"></td>
+						<td th:text="${entry.jockey}"></td>
+						<td th:text="${entry.popularity}"></td>
+						<td th:text="${entry.odds}"></td>
+						<td th:text="${entry.recentResult}"></td>
+						<td>
+							<a th:href="@{/races/{raceId}/entries/{entryId}/edit(
+							           raceId=${raceId},
+							           entryId=${entry.entryId}
+							       )}" class="btn">
+								修正
+							</a>
+							<form th:action="@{/races/{raceId}/entries/{entryId}/delete(
+							                       raceId=${raceId},
+							                       entryId=${entry.entryId}
+							                   )}" method="post" style="display:inline;">
+
+								<button type="submit" class="btn-danger">削除</button>
+							</form>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<br>
+
+			<a th:href="@{/races/{raceId}/entries(raceId=${raceId})}" class="btn">
+				予想結果を見る
+			</a>
+			<br>
+			<form th:action="@{/races}" method="get">
+				<button type="submit" class="btn btn-danger">レース一覧に戻る</button>
+			</form>
+		</div>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<title>レース一覧</title>
+</head>
+
+<body>
+	<header class="site-header">
+		<div class="site-title">Steel Horse Run</div>
+
+		<nav class="site-nav">
+			<a th:href="@{/races}">レース一覧</a>
+			<a th:href="@{/races/new}">レース登録</a>
+		</nav>
+	</header>
+
+	<div class="container race-list-container">
+
+		<h1 class="compact-title">レース一覧</h1>
+
+		<p>
+			<a class="page-link" th:href="@{/races/new}">
+				新しいレースを登録する
+			</a>
+		</p>
+
+		<div class="table-bg">
+			<table>
+				<tr>
+					<th>ID</th>
+					<th>開催日</th>
+					<th>場所</th>
+					<th>レース名</th>
+					<th>距離</th>
+					<th>馬場</th>
+					<th>天気</th>
+					<th>馬場状態</th>
+					<th>操作</th>
+				</tr>
+
+				<tr th:each="race : ${races}">
+					<td th:text="${race.raceId}"></td>
+					<td th:text="${race.raceDate}"></td>
+					<td th:text="${race.place}"></td>
+					<td th:text="${race.raceName}"></td>
+					<td>
+						<span th:text="${race.distance}"></span>m
+					</td>
+					<td th:text="${race.surface}"></td>
+					<td th:text="${race.weather}"></td>
+					<td th:text="${race.trackCondition}"></td>
+					<td>
+						<a th:href="@{/races/{raceId}/entries(raceId=${race.raceId})}">
+							予想を見る
+						</a>
+						/
+						<a th:href="@{/races/{raceId}/entries/new(raceId=${race.raceId})}">
+							馬を追加
+						</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+	</div>
+</body>
+
+</html>

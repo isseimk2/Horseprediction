@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.app.mapper.RaceEntryMapper">
+
+	<select id="selectByRaceId" resultMap="raceEntryMap">
+		SELECT
+		e.id AS entry_id,
+
+		r.id AS race_id,
+		r.race_name,
+		r.race_date,
+		r.place,
+		r.distance,
+		r.surface,
+		r.weather,
+		r.track_condition,
+
+		h.id AS horse_id,
+		h.name AS horse_name,
+		h.age,
+		h.sex,
+
+		e.jockey,
+		e.frame_number,
+		e.horse_number,
+		e.odds,
+		e.popularity,
+		e.recent_result,
+		e.result_rank
+
+		FROM race_entries e
+		JOIN
+		horses h
+		ON e.horse_id = h.id
+		JOIN races r
+		ON e.race_id = r.id
+		WHERE r.id
+		= #{raceId}
+		ORDER BY e.horse_number
+	</select>
+
+	<resultMap id="raceEntryMap"
+		type="com.example.app.dto.RaceEntryDto">
+
+		<id property="entryId" column="entry_id" />
+
+		<result property="raceId" column="race_id" />
+		<result property="raceName" column="race_name" />
+		<result property="raceDate" column="race_date" />
+		<result property="place" column="place" />
+		<result property="distance" column="distance" />
+		<result property="surface" column="surface" />
+		<result property="weather" column="weather" />
+		<result property="trackCondition" column="track_condition" />
+
+		<result property="horseId" column="horse_id" />
+		<result property="horseName" column="horse_name" />
+		<result property="age" column="age" />
+		<result property="sex" column="sex" />
+
+		<result property="jockey" column="jockey" />
+		<result property="frameNumber" column="frame_number" />
+		<result property="horseNumber" column="horse_number" />
+		<result property="odds" column="odds" />
+		<result property="popularity" column="popularity" />
+		<result property="recentResult" column="recent_result" />
+		<result property="resultRank" column="result_rank" />
+	</resultMap>
+
+	<insert id="insertHorse"
+		parameterType="com.example.app.form.EntryForm" useGeneratedKeys="true"
+		keyProperty="horseId">
+		INSERT INTO horses
+		(name, age, sex)
+		VALUES
+		(#{horseName},
+		#{age}, #{sex})
+	</insert>
+
+	<insert id="insertRaceEntry">
+		INSERT INTO race_entries
+		(race_id, horse_id, jockey,
+		frame_number, horse_number, odds, popularity,
+		recent_result,
+		result_rank)
+		VALUES
+		(#{raceId}, #{horseId}, #{form.jockey},
+		#{form.frameNumber}, #{form.horseNumber},
+		#{form.odds},
+		#{form.popularity}, #{form.recentResult}, NULL)
+	</insert>
+	<!-- 削除コード追加 -->
+	<delete id="deleteRaceEntry">
+		DELETE FROM race_entries
+		WHERE id = #{entryId}
+	</delete>
+	<!-- 修正コード追加 -->
+	<select id="selectByEntryId" resultMap="raceEntryMap">
+		SELECT
+		e.id AS entry_id,
+
+		r.id AS race_id,
+		r.race_name,
+		r.race_date,
+		r.place,
+		r.distance,
+		r.surface,
+		r.weather,
+		r.track_condition,
+
+		h.id AS horse_id,
+		h.name AS horse_name,
+		h.age,
+		h.sex,
+
+		e.jockey,
+		e.frame_number,
+		e.horse_number,
+		e.odds,
+		e.popularity,
+		e.recent_result,
+		e.result_rank
+
+		FROM race_entries e
+		JOIN horses h
+		ON e.horse_id = h.id
+		JOIN races r
+		ON e.race_id = r.id
+		WHERE e.id = #{entryId}
+	</select>
+
+	<update id="updateHorse"
+		parameterType="com.example.app.form.EntryForm">
+		UPDATE horses
+		SET
+		name = #{horseName},
+		age = #{age},
+		sex = #{sex}
+		WHERE id = #{horseId}
+	</update>
+
+	<update id="updateRaceEntry"
+		parameterType="com.example.app.form.EntryForm">
+		UPDATE race_entries
+		SET
+		jockey = #{jockey},
+		frame_number = #{frameNumber},
+		horse_number = #{horseNumber},
+		odds = #{odds},
+		popularity = #{popularity},
+		recent_result = #{recentResult}
+		WHERE id = #{entryId}
+	</update>
+</mapper>

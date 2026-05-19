@@ -1,0 +1,421 @@
+@charset "UTF-8";
+/* =========================
+   全体
+========================= */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Yu Gothic", "Meiryo", sans-serif;
+    color: #222;
+    background: #f3f5f4;
+}
+
+
+/* 中央の箱 */
+.container {
+    max-width: 1100px;
+    margin: 30px auto;
+    background: #ffffff;
+    border: 1px solid #d0d0d0;
+    border-top: 6px solid #006b3f;
+    border-radius: 4px;
+    padding: 30px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+}
+
+/* =========================
+   見出し
+========================= */
+h1 {
+    color: #006b3f;
+    background: #ffffff;
+    border-left: 8px solid #006b3f;
+    border-bottom: 2px solid #d71920;
+    padding: 10px 0 10px 16px;
+    margin-bottom: 28px;
+    font-size: 34px;
+}
+
+h1::before {
+    content: "";
+}
+
+h2 {
+    color: #006b3f;
+    border-left: 6px solid #d71920;
+    border-bottom: 1px solid #cccccc;
+    padding: 8px 0 8px 12px;
+    margin-top: 28px;
+    font-size: 26px;
+}
+
+/* =========================
+   レース情報
+========================= */
+.race-info {
+    background: #f7fbf8;
+    border: 1px solid #c8d8cf;
+    border-left: 6px solid #006b3f;
+    padding: 18px 22px;
+    margin-bottom: 28px;
+}
+
+.race-info p {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+/* =========================
+   フォーム
+========================= */
+form p {
+    font-size: 18px;
+    margin-bottom: 18px;
+}
+
+input,
+select {
+    padding: 8px 10px;
+    font-size: 16px;
+    border: 1px solid #999;
+    border-radius: 3px;
+    min-width: 230px;
+    background: #ffffff;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: #006b3f;
+    box-shadow: 0 0 4px rgba(0, 107, 63, 0.5);
+}
+
+/* =========================
+   ボタン
+========================= */
+button,
+.btn {
+    display: inline-block;
+    background: #006b3f;
+    color: #ffffff;
+    border: 1px solid #005230;
+    border-radius: 3px;
+    padding: 9px 18px;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 5px 5px 5px 0;
+}
+
+button:hover,
+.btn:hover {
+    background: #008a4f;
+}
+
+/* 赤アクセントボタン */
+.btn-sub {
+    background: #d71920;
+    border-color: #b9151b;
+    color: #ffffff;
+}
+
+.btn-sub:hover {
+    background: #ef333a;
+}
+
+/* 削除ボタン */
+.btn-danger {
+    background: #b00020;
+    border-color: #8a0018;
+}
+
+.btn-danger:hover {
+    background: #d71920;
+}
+
+/* =========================
+   リンク
+========================= */
+a {
+    color: #006b3f;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #d71920;
+    text-decoration: underline;
+}
+
+/* =========================
+   テーブル
+========================= */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    margin-top: 22px;
+    border: 1px solid #cccccc;
+}
+
+th {
+    background: #006b3f;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    padding: 10px;
+    font-size: 16px;
+}
+
+td {
+    border: 1px solid #cccccc;
+    padding: 9px;
+    font-size: 16px;
+    text-align: center;
+}
+
+tr:nth-child(even) {
+    background: #f3f8f5;
+}
+
+tr:hover {
+    background: #fff5f5;
+}
+
+/* 予想順位を目立たせる */
+td:first-child {
+    font-weight: bold;
+    color: #d71920;
+}
+
+/* =========================
+   操作エリア
+========================= */
+.actions {
+    margin-top: 28px;
+    padding-top: 18px;
+    border-top: 1px solid #cccccc;
+}
+
+/* =========================
+   レース一覧の上部リンク
+========================= */
+.page-link {
+    display: inline-block;
+    background: #ffffff;
+    color: #006b3f;
+    border: 1px solid #006b3f;
+    padding: 8px 14px;
+    border-radius: 3px;
+    margin-bottom: 16px;
+}
+
+.page-link:hover {
+    background: #006b3f;
+    color: #ffffff;
+    text-decoration: none;
+}
+/* =========================
+   上部ヘッダー・ナビ
+========================= */
+.site-header {
+    background: #006b3f;
+    border-bottom: 5px solid #d71920;
+    color: #ffffff;
+    padding: 0;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.site-title {
+    font-size: 30px;
+    font-weight: bold;
+    padding: 18px 40px 12px;
+    letter-spacing: 1px;
+}
+
+.site-title::before {
+    content: "🏇 ";
+}
+
+.site-nav {
+    background: #005230;
+    padding: 0 40px;
+    display: flex;
+    gap: 0;
+}
+
+.site-nav a {
+    color: #ffffff;
+    padding: 12px 22px;
+    display: inline-block;
+    border-left: 1px solid rgba(255, 255, 255, 0.25);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.site-nav a:last-child {
+    border-right: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.site-nav a:hover {
+    background: #d71920;
+    color: #ffffff;
+    text-decoration: none;
+}
+/*レース登録エラーメッセージ*/
+.error-message {
+    background: #fff0f0;
+    color: #b00020;
+    border: 1px solid #d71920;
+    border-left: 6px solid #d71920;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    border-radius: 4px;
+}
+/*馬登録必須任意のスタイル追加*/
+.required-label {
+    display: inline-block;
+    background: #d71920;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 3px 7px;
+    border-radius: 3px;
+    margin-right: 8px;
+}
+
+.optional-label {
+    display: inline-block;
+    background: #777777;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 3px 7px;
+    border-radius: 3px;
+    margin-right: 8px;
+}
+/*馬画像のスタイル追加*/
+/* =========================
+   レース一覧：箱全体に薄く馬画像
+========================= */
+.race-list-container {
+    position: relative;
+    overflow: hidden;
+    background: #ffffff;
+}
+
+/* 背景画像 */
+.race-list-container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("/images/jojohose.png");
+    background-size: cover;
+    background-position: center 12%;
+    background-repeat: no-repeat;
+    opacity: 0.6;
+    z-index: 0;
+}
+
+/* 白いフィルター */
+.race-list-container::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.42);  /* 数字を下げるほど画像が濃く見える */
+    z-index: 1;
+}
+
+/* 中身を前に出す */
+.race-list-container > * {
+    position: relative;
+    z-index: 2;
+}
+
+/* 表まわり */
+.table-bg {
+    position: relative;
+    overflow: hidden;
+    padding: 24px;
+    margin-top: 20px;
+    border: 1px solid #cccccc;
+    background: rgba(255, 255, 255, 0.35);
+}
+
+/* table-bg側では画像を出さない */
+.table-bg::before,
+.table-bg::after {
+    content: none;
+}
+
+/* テーブルを少し透かす */
+.table-bg table {
+    background: rgba(255, 255, 255, 0.55);
+}
+
+.table-bg td {
+    background: rgba(255, 255, 255, 0.74);
+}
+
+.table-bg tr:nth-child(even) td {
+    background: rgba(243, 248, 245, 0.74);
+}
+
+.table-bg th {
+    background: #006b3f;
+    color: #ffffff;
+}
+/*レース一覧の余白修正*/
+.compact-title {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.85);
+    margin-bottom: 18px;
+    padding: 10px 20px 10px 16px;
+    border-left: 8px solid #006b3f;
+    border-bottom: 2px solid #d71920;
+}
+/* =========================
+   スマホ対応
+========================= */
+@media screen and (max-width: 768px) {
+    body::before {
+        font-size: 22px;
+        padding: 14px 18px;
+    }
+
+    .container {
+        margin: 15px;
+        padding: 18px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    th,
+    td {
+        padding: 7px;
+        font-size: 14px;
+    }
+
+    input,
+    select {
+        min-width: 180px;
+    }
+	
+	.site-title {
+	    font-size: 24px;
+	    padding: 14px 18px 10px;
+	}
+
+	.site-nav {
+	    padding: 0;
+	    flex-direction: column;
+	}
+
+	.site-nav a {
+	    border-left: none;
+	    border-top: 1px solid rgba(255, 255, 255, 0.25);
+	    padding: 12px 18px;
+	}
+}

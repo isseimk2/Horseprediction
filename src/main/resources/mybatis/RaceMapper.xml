@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.app.mapper.RaceMapper">
+
+	<insert id="insertRace"
+		parameterType="com.example.app.form.RaceForm" useGeneratedKeys="true"
+		keyProperty="raceId">
+		INSERT INTO races
+		(race_date, place, race_name, distance, surface, weather, track_condition)
+		VALUES
+		(#{raceDate}, #{place}, #{raceName}, #{distance}, #{surface}, #{weather},
+		#{trackCondition})
+	</insert>
+
+	<select id="selectAll" resultMap="raceMap">
+		SELECT
+		id AS race_id,
+		race_date,
+		place,
+		race_name,
+		distance,
+		surface,
+		weather,
+		track_condition
+		FROM races
+		ORDER BY id DESC
+	</select>
+
+	<resultMap id="raceMap" type="com.example.app.dto.RaceDto">
+		<id property="raceId" column="race_id" />
+		<result property="raceDate" column="race_date" />
+		<result property="place" column="place" />
+		<result property="raceName" column="race_name" />
+		<result property="distance" column="distance" />
+		<result property="surface" column="surface" />
+		<result property="weather" column="weather" />
+		<result property="trackCondition" column="track_condition" />
+	</resultMap>
+
+</mapper>
