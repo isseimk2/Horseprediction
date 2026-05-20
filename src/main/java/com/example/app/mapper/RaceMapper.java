@@ -12,4 +12,8 @@ public interface RaceMapper {
 	void insertRace(RaceForm form);
 
 	List<RaceDto> selectAll();
+
+	void deleteRaceEntriesByRaceId(Integer raceId);
+
+	void deleteRace(Integer raceId);
 }
