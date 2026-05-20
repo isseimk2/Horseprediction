@@ -9,9 +9,11 @@
 		parameterType="com.example.app.form.RaceForm" useGeneratedKeys="true"
 		keyProperty="raceId">
 		INSERT INTO races
-		(race_date, place, race_name, distance, surface, weather, track_condition)
+		(race_date, place, race_name, distance,
+		surface, weather, track_condition)
 		VALUES
-		(#{raceDate}, #{place}, #{raceName}, #{distance}, #{surface}, #{weather},
+		(#{raceDate}, #{place},
+		#{raceName}, #{distance}, #{surface}, #{weather},
 		#{trackCondition})
 	</insert>
 
@@ -39,5 +41,15 @@
 		<result property="weather" column="weather" />
 		<result property="trackCondition" column="track_condition" />
 	</resultMap>
+
+	<delete id="deleteRaceEntriesByRaceId">
+		DELETE FROM race_entries
+		WHERE race_id = #{raceId}
+	</delete>
+
+	<delete id="deleteRace">
+		DELETE FROM races
+		WHERE id = #{raceId}
+	</delete>
 
 </mapper>

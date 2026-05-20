@@ -23,4 +23,9 @@ public class RaceService {
 	public List<RaceDto> getRaceList() {
 		return raceMapper.selectAll();
 	}
+
+	public void deleteRace(Integer raceId) {
+		raceMapper.deleteRaceEntriesByRaceId(raceId);
+		raceMapper.deleteRace(raceId);
+	}
 }

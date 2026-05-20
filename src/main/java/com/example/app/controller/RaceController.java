@@ -3,6 +3,7 @@ package com.example.app.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.app.form.RaceForm;
@@ -49,5 +50,13 @@ public class RaceController {
 		Integer raceId = raceService.registerRace(form);
 
 		return "redirect:/races/" + raceId + "/entries/new";
+	}
+
+	@PostMapping("/races/{raceId}/delete")
+	public String deleteRace(@PathVariable Integer raceId) {
+
+		raceService.deleteRace(raceId);
+
+		return "redirect:/races";
 	}
 }
