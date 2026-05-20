@@ -13,6 +13,10 @@ public interface RaceMapper {
 
 	List<RaceDto> selectAll();
 
+	RaceDto selectById(Integer raceId);
+
+	void updateRace(RaceForm form);
+
 	void deleteRaceEntriesByRaceId(Integer raceId);
 
 	void deleteRace(Integer raceId);
