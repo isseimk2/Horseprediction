@@ -56,10 +56,16 @@
 						<a th:href="@{/races/{raceId}/entries(raceId=${race.raceId})}">
 							予想を見る
 						</a>
-						/
+
 						<a th:href="@{/races/{raceId}/entries/new(raceId=${race.raceId})}">
 							馬を追加
 						</a>
+						<form th:action="@{/races/{raceId}/delete(raceId=${race.raceId})}" method="post"
+							style="display:inline;">
+							<button type="submit" class="btn-danger" onclick="return confirm('このレースを削除しますか？');">
+								削除
+							</button>
+						</form>
 					</td>
 				</tr>
 			</table>
