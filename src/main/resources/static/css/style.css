@@ -232,9 +232,9 @@ td:first-child {
     letter-spacing: 1px;
 }
 
-.site-title::before {
+/*.site-title::before {
     content: "🏇 ";
-}
+}*/
 
 .site-nav {
     background: #005230;
@@ -373,6 +373,67 @@ td:first-child {
     padding: 10px 20px 10px 16px;
     border-left: 8px solid #006b3f;
     border-bottom: 2px solid #d71920;
+}
+/* =========================
+   上部ヘッダー・ナビ 案2
+========================= */
+.site-header {
+    background-color: #006b3f;
+    border-bottom: 5px solid #d71920;
+    color: #ffffff;
+    padding: 0;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+
+    /* 縦並びにする */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+/* ロゴ＋タイトル部分 */
+.site-title {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: 1px;
+
+    padding: 18px 70px 12px;
+}
+
+.site-logo {
+    width: 90px;
+    height: auto;
+    object-fit: contain;
+}
+
+/* 下の横長メニュー */
+.site-nav {
+	display: flex;
+	   justify-content: flex-start;
+	   gap: 30px;
+	   background-color: #005230;
+	   padding: 12px 0 12px 70px;
+}
+
+/* メニューのリンク */
+.site-nav a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+
+    padding: 8px 24px;
+    border-radius: 5px;
+}
+
+/* マウスを乗せたとき */
+.site-nav a:hover {
+    background-color: #008f55;
+    color: #ffffff;
+    text-decoration: none;
 }
 /* =========================
    スマホ対応

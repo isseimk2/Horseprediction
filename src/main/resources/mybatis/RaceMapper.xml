@@ -51,5 +51,34 @@
 		DELETE FROM races
 		WHERE id = #{raceId}
 	</delete>
+	<!-- 修正機能 -->
+	<select id="selectById" resultMap="raceMap">
+		SELECT
+		id AS race_id,
+		race_date,
+		place,
+		race_name,
+		distance,
+		surface,
+		weather,
+		track_condition
+		FROM races
+		WHERE id = #{raceId}
+	</select>
+
+	<update id="updateRace"
+		parameterType="com.example.app.form.RaceForm">
+		UPDATE races
+		SET
+		race_date = #{raceDate},
+		place = #{place},
+		race_name = #{raceName},
+		distance = #{distance},
+		surface = #{surface},
+		weather = #{weather},
+		track_condition = #{trackCondition}
+		WHERE id = #{raceId}
+	</update>
+
 
 </mapper>
