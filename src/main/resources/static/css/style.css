@@ -232,9 +232,9 @@ td:first-child {
     letter-spacing: 1px;
 }
 
-.site-title::before {
+/*.site-title::before {
     content: "🏇 ";
-}
+}*/
 
 .site-nav {
     background: #005230;
@@ -373,6 +373,29 @@ td:first-child {
     padding: 10px 20px 10px 16px;
     border-left: 8px solid #006b3f;
     border-bottom: 2px solid #d71920;
+}
+/*ヘーダーロゴのスタイル*/
+.site-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background-color: #006b3f;
+	padding: 16px 30px;
+}
+
+.site-title {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	color: white;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.site-logo {
+	width: 120px;
+	height: auto;
+	object-fit: contain;
 }
 /* =========================
    スマホ対応
