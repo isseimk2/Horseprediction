@@ -28,4 +28,13 @@ public class RaceService {
 		raceMapper.deleteRaceEntriesByRaceId(raceId);
 		raceMapper.deleteRace(raceId);
 	}
+
+	//修正用
+	public RaceDto getRace(Integer raceId) {
+		return raceMapper.selectById(raceId);
+	}
+
+	public void updateRace(RaceForm form) {
+		raceMapper.updateRace(form);
+	}
 }
