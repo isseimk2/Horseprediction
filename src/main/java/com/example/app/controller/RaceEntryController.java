@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -108,5 +109,34 @@ public class RaceEntryController {
 		raceEntryService.updateEntry(form);
 
 		return "redirect:/races/" + raceId + "/entries/new";
+	}
+
+	//結果入力画面を追加
+	@GetMapping("/races/{raceId}/results/edit")
+	public String showResultEditForm(
+			@PathVariable Integer raceId,
+			Model model) {
+
+		List<RaceEntryDto> entries = raceEntryService.getPredictionList(raceId);
+
+		model.addAttribute("raceId", raceId);
+		model.addAttribute("entries", entries);
+
+		if (!entries.isEmpty()) {
+			model.addAttribute("race", entries.get(0));
+		}
+
+		return "result-edit-form";
+	}
+
+	//結果更新POSTを追加
+	@PostMapping("/races/{raceId}/results/edit")
+	public String updateResults(
+			@PathVariable Integer raceId,
+			@ModelAttribute("entries") RaceResultForm form) {
+
+		raceEntryService.updateResultRanks(form.getEntries());
+
+		return "redirect:/races/" + raceId + "/entries";
 	}
 }
