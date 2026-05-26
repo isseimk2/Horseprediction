@@ -52,6 +52,8 @@
 			<table border="1">
 				<tr>
 					<th>予想順位</th>
+					<th>実際順位</th>
+					<th>差</th>
 					<th>馬番</th>
 					<th>馬名</th>
 					<th>年齢</th>
@@ -65,6 +67,10 @@
 
 				<tr th:each="entry : ${entries}">
 					<td th:text="${entry.predictionRank}"></td>
+					<td th:text="${entry.resultRank != null ? entry.resultRank : '-'}"></td>
+					<td
+						th:text="${entry.resultRank != null ? T(java.lang.Math).abs(entry.predictionRank - entry.resultRank) : '-'}">
+					</td>
 					<td th:text="${entry.horseNumber}"></td>
 					<td th:text="${entry.horseName}"></td>
 					<td th:text="${entry.age}"></td>
@@ -77,6 +83,9 @@
 				</tr>
 			</table>
 
+			<form th:action="@{/races/{raceId}/results/edit(raceId=${race.raceId})}" method="get">
+				<button type="submit">実際の結果を入力する</button>
+			</form>
 			<form th:action="@{/races/{raceId}/entries/new(raceId=${race.raceId})}" method="get">
 				<button type="submit">出馬入力画面に戻る</button>
 			</form>
