@@ -185,4 +185,13 @@ public class RaceEntryService {
 		raceEntryMapper.updateHorse(form);
 		raceEntryMapper.updateRaceEntry(form);
 	}
+
+	//結果、比較処理追加
+	public void updateResultRanks(List<RaceEntryDto> entries) {
+		for (RaceEntryDto entry : entries) {
+			raceEntryMapper.updateResultRank(
+					entry.getEntryId(),
+					entry.getResultRank());
+		}
+	}
 }

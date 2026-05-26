@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.app.dto.RaceEntryDto;
 import com.example.app.form.EntryForm;
+import com.example.app.form.RaceResultForm;
 import com.example.app.service.RaceEntryService;
 
 import lombok.RequiredArgsConstructor;
@@ -108,5 +109,37 @@ public class RaceEntryController {
 		raceEntryService.updateEntry(form);
 
 		return "redirect:/races/" + raceId + "/entries/new";
+	}
+
+	//結果入力画面を追加
+	@GetMapping("/races/{raceId}/results/edit")
+	public String showResultEditForm(
+			@PathVariable Integer raceId,
+			Model model) {
+
+		List<RaceEntryDto> entries = raceEntryService.getPredictionList(raceId);
+
+		RaceResultForm form = new RaceResultForm();
+		form.setEntries(entries);
+
+		model.addAttribute("raceId", raceId);
+		model.addAttribute("raceResultForm", form);
+
+		if (!entries.isEmpty()) {
+			model.addAttribute("race", entries.get(0));
+		}
+
+		return "result-edit-form";
+	}
+
+	//結果更新POSTを追加
+	@PostMapping("/races/{raceId}/results/edit")
+	public String updateResults(
+			@PathVariable Integer raceId,
+			RaceResultForm raceResultForm) {
+
+		raceEntryService.updateResultRanks(raceResultForm.getEntries());
+
+		return "redirect:/races/" + raceId + "/entries";
 	}
 }

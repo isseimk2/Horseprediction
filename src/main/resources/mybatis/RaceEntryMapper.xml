@@ -125,11 +125,13 @@
 		e.result_rank
 
 		FROM race_entries e
-		JOIN horses h
+		JOIN
+		horses h
 		ON e.horse_id = h.id
 		JOIN races r
 		ON e.race_id = r.id
-		WHERE e.id = #{entryId}
+		WHERE e.id
+		= #{entryId}
 	</select>
 
 	<update id="updateHorse"
@@ -138,7 +140,8 @@
 		SET
 		name = #{horseName},
 		age = #{age},
-		sex = #{sex}
+		sex =
+		#{sex}
 		WHERE id = #{horseId}
 	</update>
 
@@ -147,11 +150,19 @@
 		UPDATE race_entries
 		SET
 		jockey = #{jockey},
-		frame_number = #{frameNumber},
+		frame_number =
+		#{frameNumber},
 		horse_number = #{horseNumber},
 		odds = #{odds},
 		popularity = #{popularity},
 		recent_result = #{recentResult}
+		WHERE id =
+		#{entryId}
+	</update>
+
+	<update id="updateResultRank">
+		UPDATE race_entries
+		SET result_rank = #{resultRank}
 		WHERE id = #{entryId}
 	</update>
 </mapper>
