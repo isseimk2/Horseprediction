@@ -29,4 +29,9 @@ public interface RaceEntryMapper {
 	void updateHorse(EntryForm form);
 
 	void updateRaceEntry(EntryForm form);
+
+	//
+	void updateResultRank(
+			@Param("entryId") Integer entryId,
+			@Param("resultRank") Integer resultRank);
 }
