@@ -5,12 +5,12 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.app.dto.RaceEntryDto;
 import com.example.app.form.EntryForm;
+import com.example.app.form.RaceResultForm;
 import com.example.app.service.RaceEntryService;
 
 import lombok.RequiredArgsConstructor;
@@ -119,8 +119,11 @@ public class RaceEntryController {
 
 		List<RaceEntryDto> entries = raceEntryService.getPredictionList(raceId);
 
+		RaceResultForm form = new RaceResultForm();
+		form.setEntries(entries);
+
 		model.addAttribute("raceId", raceId);
-		model.addAttribute("entries", entries);
+		model.addAttribute("raceResultForm", form);
 
 		if (!entries.isEmpty()) {
 			model.addAttribute("race", entries.get(0));
@@ -133,9 +136,9 @@ public class RaceEntryController {
 	@PostMapping("/races/{raceId}/results/edit")
 	public String updateResults(
 			@PathVariable Integer raceId,
-			@ModelAttribute("entries") RaceResultForm form) {
+			RaceResultForm raceResultForm) {
 
-		raceEntryService.updateResultRanks(form.getEntries());
+		raceEntryService.updateResultRanks(raceResultForm.getEntries());
 
 		return "redirect:/races/" + raceId + "/entries";
 	}
