@@ -17,4 +17,8 @@ public class EntryForm {
 	private Double odds;
 	private Integer popularity;
 	private Integer recentResult;
+
+	private String runningStyle;
+	private String distanceAptitude;
+	private Integer jockeyScore;
 }
