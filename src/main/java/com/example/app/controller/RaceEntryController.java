@@ -91,6 +91,11 @@ public class RaceEntryController {
 		form.setPopularity(dto.getPopularity());
 		form.setRecentResult(dto.getRecentResult());
 
+		// 追加項目
+		form.setRunningStyle(dto.getRunningStyle());
+		form.setDistanceAptitude(dto.getDistanceAptitude());
+		form.setJockeyScore(dto.getJockeyScore());
+
 		model.addAttribute("raceId", raceId);
 		model.addAttribute("entryForm", form);
 
