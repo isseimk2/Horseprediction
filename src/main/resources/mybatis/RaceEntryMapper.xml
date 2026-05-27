@@ -5,6 +5,7 @@
 
 <mapper namespace="com.example.app.mapper.RaceEntryMapper">
 
+	<!-- レースIDから出走馬一覧を取得 -->
 	<select id="selectByRaceId" resultMap="raceEntryMap">
 		SELECT
 		e.id AS entry_id,
@@ -24,6 +25,9 @@
 		h.sex,
 
 		e.jockey,
+		e.running_style,
+		e.distance_aptitude,
+		e.jockey_score,
 		e.frame_number,
 		e.horse_number,
 		e.odds,
@@ -32,16 +36,15 @@
 		e.result_rank
 
 		FROM race_entries e
-		JOIN
-		horses h
+		JOIN horses h
 		ON e.horse_id = h.id
 		JOIN races r
 		ON e.race_id = r.id
-		WHERE r.id
-		= #{raceId}
+		WHERE r.id = #{raceId}
 		ORDER BY e.horse_number
 	</select>
 
+	<!-- RaceEntryDto への変換設定 -->
 	<resultMap id="raceEntryMap"
 		type="com.example.app.dto.RaceEntryDto">
 
@@ -62,6 +65,9 @@
 		<result property="sex" column="sex" />
 
 		<result property="jockey" column="jockey" />
+		<result property="runningStyle" column="running_style" />
+		<result property="distanceAptitude" column="distance_aptitude" />
+		<result property="jockeyScore" column="jockey_score" />
 		<result property="frameNumber" column="frame_number" />
 		<result property="horseNumber" column="horse_number" />
 		<result property="odds" column="odds" />
@@ -70,9 +76,11 @@
 		<result property="resultRank" column="result_rank" />
 	</resultMap>
 
+	<!-- 馬情報を登録 -->
 	<insert id="insertHorse"
 		parameterType="com.example.app.form.EntryForm" useGeneratedKeys="true"
 		keyProperty="horseId">
+
 		INSERT INTO horses
 		(name, age, sex)
 		VALUES
@@ -80,24 +88,47 @@
 		#{age}, #{sex})
 	</insert>
 
+	<!-- 出走情報を登録 -->
 	<insert id="insertRaceEntry">
 		INSERT INTO race_entries
-		(race_id, horse_id, jockey,
-		frame_number, horse_number, odds, popularity,
+		(
+		race_id,
+		horse_id,
+		jockey,
+		running_style,
+		distance_aptitude,
+		jockey_score,
+		frame_number,
+		horse_number,
+		odds,
+		popularity,
 		recent_result,
-		result_rank)
+		result_rank
+		)
 		VALUES
-		(#{raceId}, #{horseId}, #{form.jockey},
-		#{form.frameNumber}, #{form.horseNumber},
+		(
+		#{raceId},
+		#{horseId},
+		#{form.jockey},
+		#{form.runningStyle},
+		#{form.distanceAptitude},
+		#{form.jockeyScore},
+		#{form.frameNumber},
+		#{form.horseNumber},
 		#{form.odds},
-		#{form.popularity}, #{form.recentResult}, NULL)
+		#{form.popularity},
+		#{form.recentResult},
+		NULL
+		)
 	</insert>
-	<!-- 削除コード追加 -->
+
+	<!-- 出走情報を削除 -->
 	<delete id="deleteRaceEntry">
 		DELETE FROM race_entries
 		WHERE id = #{entryId}
 	</delete>
-	<!-- 修正コード追加 -->
+
+	<!-- entryId から1件取得 修正画面用 -->
 	<select id="selectByEntryId" resultMap="raceEntryMap">
 		SELECT
 		e.id AS entry_id,
@@ -117,6 +148,9 @@
 		h.sex,
 
 		e.jockey,
+		e.running_style,
+		e.distance_aptitude,
+		e.jockey_score,
 		e.frame_number,
 		e.horse_number,
 		e.odds,
@@ -125,44 +159,48 @@
 		e.result_rank
 
 		FROM race_entries e
-		JOIN
-		horses h
+		JOIN horses h
 		ON e.horse_id = h.id
 		JOIN races r
 		ON e.race_id = r.id
-		WHERE e.id
-		= #{entryId}
+		WHERE e.id = #{entryId}
 	</select>
 
+	<!-- 馬情報を修正 -->
 	<update id="updateHorse"
 		parameterType="com.example.app.form.EntryForm">
+
 		UPDATE horses
 		SET
 		name = #{horseName},
 		age = #{age},
-		sex =
-		#{sex}
+		sex = #{sex}
 		WHERE id = #{horseId}
 	</update>
 
+	<!-- 出走情報を修正 -->
 	<update id="updateRaceEntry"
 		parameterType="com.example.app.form.EntryForm">
+
 		UPDATE race_entries
 		SET
 		jockey = #{jockey},
-		frame_number =
-		#{frameNumber},
+		running_style = #{runningStyle},
+		distance_aptitude = #{distanceAptitude},
+		jockey_score = #{jockeyScore},
+		frame_number = #{frameNumber},
 		horse_number = #{horseNumber},
 		odds = #{odds},
 		popularity = #{popularity},
 		recent_result = #{recentResult}
-		WHERE id =
-		#{entryId}
+		WHERE id = #{entryId}
 	</update>
 
+	<!-- 実際の着順を更新 -->
 	<update id="updateResultRank">
 		UPDATE race_entries
 		SET result_rank = #{resultRank}
 		WHERE id = #{entryId}
 	</update>
+
 </mapper>
