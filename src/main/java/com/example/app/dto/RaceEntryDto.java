@@ -36,4 +36,9 @@ public class RaceEntryDto {
 	// 予想用
 	private Integer score;
 	private Integer predictionRank;
+
+	//脚質、距離適性、騎手
+	private String runningStyle;
+	private String distanceAptitude;
+	private Integer jockeyScore;
 }
