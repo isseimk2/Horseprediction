@@ -64,6 +64,44 @@
 				<span class="optional-label">任意</span>
 				<input type="text" th:field="*{jockey}">
 			</p>
+			
+			<p>
+				脚質：
+				<span class="optional-label">任意</span>
+				<select th:field="*{runningStyle}">
+					<option value="">選択してください</option>
+					<option value="逃げ">逃げ</option>
+					<option value="先行">先行</option>
+					<option value="差し">差し</option>
+					<option value="追込">追込</option>
+				</select>
+			</p>
+
+			<p>
+				距離適性：
+				<span class="optional-label">任意</span>
+				<select th:field="*{distanceAptitude}">
+					<option value="">選択してください</option>
+					<option value="短距離">短距離</option>
+					<option value="マイル">マイル</option>
+					<option value="中距離">中距離</option>
+					<option value="長距離">長距離</option>
+					<option value="万能">万能</option>
+				</select>
+			</p>
+
+			<p>
+				騎手評価：
+				<span class="optional-label">任意</span>
+				<select th:field="*{jockeyScore}">
+					<option value="">選択してください</option>
+					<option value="5">5：かなり強い</option>
+					<option value="4">4：強い</option>
+					<option value="3">3：普通</option>
+					<option value="2">2：やや不安</option>
+					<option value="1">1：不安</option>
+				</select>
+			</p>
 
 			<p>
 				枠番：

@@ -153,6 +153,120 @@ public class RaceEntryService {
 				// 長距離
 				score += 1;
 			}
+
+			// 脚質点
+			if (entry.getRunningStyle() != null && !entry.getRunningStyle().isBlank()) {
+				if (entry.getRunningStyle().equals("逃げ")) {
+					score += 6;
+				} else if (entry.getRunningStyle().equals("先行")) {
+					score += 8;
+				} else if (entry.getRunningStyle().equals("差し")) {
+					score += 5;
+				} else if (entry.getRunningStyle().equals("追込")) {
+					score += 3;
+				}
+			}
+
+			// 距離適性点
+			if (entry.getDistanceAptitude() != null
+					&& !entry.getDistanceAptitude().isBlank()
+					&& entry.getDistance() != null) {
+
+				String raceDistanceType = "";
+
+				if (entry.getDistance() >= 800 && entry.getDistance() <= 1200) {
+					raceDistanceType = "短距離";
+				} else if (entry.getDistance() >= 1400 && entry.getDistance() <= 1600) {
+					raceDistanceType = "マイル";
+				} else if (entry.getDistance() >= 1800 && entry.getDistance() <= 2400) {
+					raceDistanceType = "中距離";
+				} else if (entry.getDistance() >= 2500) {
+					raceDistanceType = "長距離";
+				}
+
+				if (entry.getDistanceAptitude().equals(raceDistanceType)) {
+					score += 15;
+				} else if (entry.getDistanceAptitude().equals("万能")) {
+					score += 8;
+				} else if (!raceDistanceType.isBlank()) {
+					score -= 5;
+				}
+			}
+
+			// 騎手評価点
+			if (entry.getJockeyScore() != null) {
+				if (entry.getJockeyScore() == 5) {
+					score += 15;
+				} else if (entry.getJockeyScore() == 4) {
+					score += 10;
+				} else if (entry.getJockeyScore() == 3) {
+					score += 5;
+				} else if (entry.getJockeyScore() == 2) {
+					score += 0;
+				} else if (entry.getJockeyScore() == 1) {
+					score -= 5;
+				}
+			}
+
+			// 組み合わせ補正：短距離 × 逃げ・先行
+			if (entry.getRunningStyle() != null && entry.getDistance() != null) {
+				if (entry.getDistance() <= 1600
+						&& (entry.getRunningStyle().equals("逃げ")
+								|| entry.getRunningStyle().equals("先行"))) {
+					score += 5;
+				}
+
+				// 長距離 × 差し・追込
+				if (entry.getDistance() >= 2500
+						&& (entry.getRunningStyle().equals("差し")
+								|| entry.getRunningStyle().equals("追込"))) {
+					score += 3;
+				}
+			}
+
+			// 組み合わせ補正：重・不良馬場 × 逃げ・先行
+			if (entry.getRunningStyle() != null && entry.getTrackCondition() != null) {
+				if ((entry.getTrackCondition().equals("重")
+						|| entry.getTrackCondition().equals("不良"))
+						&& (entry.getRunningStyle().equals("逃げ")
+								|| entry.getRunningStyle().equals("先行"))) {
+					score += 5;
+				}
+			}
+
+			// 組み合わせ補正：人気 × オッズ
+			if (entry.getPopularity() != null && entry.getOdds() != null) {
+
+				// 人気上位かつオッズも低い → 信頼度高い
+				if (entry.getPopularity() <= 3 && entry.getOdds() <= 7.0) {
+					score += 10;
+				}
+
+				// 人気が低く、オッズも高い → 厳しめに減点
+				if (entry.getPopularity() >= 10 && entry.getOdds() >= 50.0) {
+					score -= 10;
+				}
+
+				// 中穴候補
+				if (entry.getPopularity() >= 4 && entry.getPopularity() <= 8
+						&& entry.getOdds() >= 10.0 && entry.getOdds() <= 30.0) {
+					score += 5;
+				}
+			}
+
+			// 組み合わせ補正：直近成績 × 人気
+			if (entry.getPopularity() != null && entry.getRecentResult() != null) {
+
+				// 直近成績が良いのに人気が低い → 穴馬候補
+				if (entry.getRecentResult() <= 3 && entry.getPopularity() >= 6) {
+					score += 8;
+				}
+
+				// 人気は高いのに直近成績が悪い → 少し危険
+				if (entry.getPopularity() <= 3 && entry.getRecentResult() >= 9) {
+					score -= 8;
+				}
+			}
 		}
 
 		return score;
