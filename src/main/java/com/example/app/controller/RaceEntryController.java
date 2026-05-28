@@ -24,7 +24,7 @@ public class RaceEntryController {
 	public String showEntryForm(
 			@PathVariable Integer raceId,
 			Model model) {
-		List<RaceEntryDto> entries = raceEntryService.getPredictionList(raceId);
+		List<RaceEntryDto> entries = raceEntryService.getEntryList(raceId);
 
 		model.addAttribute("raceId", raceId);
 		model.addAttribute("entryForm", new EntryForm());
