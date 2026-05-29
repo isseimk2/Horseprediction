@@ -24,7 +24,7 @@ public class RaceEntryController {
 	public String showEntryForm(
 			@PathVariable Integer raceId,
 			Model model) {
-		List<RaceEntryDto> entries = raceEntryService.getPredictionList(raceId);
+		List<RaceEntryDto> entries = raceEntryService.getEntryList(raceId);
 
 		model.addAttribute("raceId", raceId);
 		model.addAttribute("entryForm", new EntryForm());
@@ -95,6 +95,7 @@ public class RaceEntryController {
 		form.setRunningStyle(dto.getRunningStyle());
 		form.setDistanceAptitude(dto.getDistanceAptitude());
 		form.setJockeyScore(dto.getJockeyScore());
+		form.setPredictionMark(dto.getPredictionMark());
 
 		model.addAttribute("raceId", raceId);
 		model.addAttribute("entryForm", form);

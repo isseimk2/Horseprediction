@@ -41,4 +41,7 @@ public class RaceEntryDto {
 	private String runningStyle;
 	private String distanceAptitude;
 	private Integer jockeyScore;
+
+	//◎などの予想用メソッド追加
+	private String predictionMark;
 }
