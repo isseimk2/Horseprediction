@@ -51,6 +51,7 @@
 
 			<table border="1">
 				<tr>
+					<th>印</th>
 					<th>予想順位</th>
 					<th>実際順位</th>
 					<th>差</th>
@@ -69,6 +70,7 @@
 				</tr>
 
 				<tr th:each="entry : ${entries}">
+					<td class="prediction-mark" th:text="${entry.predictionMark != null ? entry.predictionMark : '-'}"></td>
 					<td th:text="${entry.predictionRank}"></td>
 					<td th:text="${entry.resultRank != null ? entry.resultRank : '-'}"></td>
 					<td

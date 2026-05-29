@@ -132,6 +132,19 @@
 				<span class="optional-label">任意</span>
 				<input type="number" th:field="*{recentResult}">
 			</p>
+			
+			<p>
+				予想印：
+				<span class="optional-label">任意</span>
+				<select th:field="*{predictionMark}">
+					<option value="">無印</option>
+					<option value="◎">◎ 本命</option>
+					<option value="○">○ 対抗</option>
+					<option value="▲">▲ 単穴</option>
+					<option value="△">△ 連下</option>
+					<option value="☆">☆ 穴</option>
+				</select>
+			</p>
 
 			<button type="submit">修正する</button>
 
