@@ -95,6 +95,7 @@ public class RaceEntryController {
 		form.setRunningStyle(dto.getRunningStyle());
 		form.setDistanceAptitude(dto.getDistanceAptitude());
 		form.setJockeyScore(dto.getJockeyScore());
+		form.setPredictionMark(dto.getPredictionMark());
 
 		model.addAttribute("raceId", raceId);
 		model.addAttribute("entryForm", form);
