@@ -308,4 +308,8 @@ public class RaceEntryService {
 					entry.getResultRank());
 		}
 	}
+
+	public List<RaceEntryDto> getEntryList(Integer raceId) {
+		return raceEntryMapper.selectByRaceId(raceId);
+	}
 }

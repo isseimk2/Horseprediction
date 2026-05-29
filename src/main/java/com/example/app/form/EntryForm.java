@@ -21,4 +21,6 @@ public class EntryForm {
 	private String runningStyle;
 	private String distanceAptitude;
 	private Integer jockeyScore;
+
+	private String predictionMark;
 }

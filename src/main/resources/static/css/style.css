@@ -435,6 +435,12 @@ td:first-child {
     color: #ffffff;
     text-decoration: none;
 }
+
+.prediction-mark {
+    font-size: 22px;
+    font-weight: bold;
+    color: #d71920;
+}
 /* =========================
    スマホ対応
 ========================= */
